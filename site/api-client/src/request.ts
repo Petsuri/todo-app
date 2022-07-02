@@ -21,5 +21,5 @@ export function request<TResponse>(
     data: options.body,
   };
 
-  return makeRequest.request<TResponse>(settings);
+  return makeRequest.request<TResponse>(settings).then((response) => response.data);
 }

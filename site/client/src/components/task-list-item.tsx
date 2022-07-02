@@ -1,20 +1,17 @@
 import { IconButton, ListItem, ListItemText, Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TaskIcon from '@mui/icons-material/TaskSharp';
+import { TaskResponse } from '@todo-app/api-client';
 
 interface Props {
-  readonly item: {
-    readonly uuid: string;
-    readonly text: string;
-    readonly isDone: boolean;
-  };
+  readonly task: TaskResponse;
 }
 
-export function TaskListItem({ item }: Props) {
-  const taskStatusColor = item.isDone ? 'success' : 'action';
+export function TaskListItem({ task }: Props) {
+  const taskStatusColor = task.isDone ? 'success' : 'action';
   return (
     <ListItem
-      key={item.uuid}
+      key={task.uuid}
       secondaryAction={
         <Stack direction='row' spacing={2}>
           <IconButton edge='end' aria-label='delete'>
@@ -25,7 +22,7 @@ export function TaskListItem({ item }: Props) {
           </IconButton>
         </Stack>
       }>
-      <ListItemText primary={item.text} />
+      <ListItemText primary={task.text} />
     </ListItem>
   );
 }

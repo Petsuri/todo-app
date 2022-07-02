@@ -1,18 +1,16 @@
 import { List } from '@mui/material';
 import { TaskListItem } from './task-list-item';
+import { TaskResponse } from '@todo-app/api-client';
+
 interface Props {
-  readonly items: {
-    readonly uuid: string;
-    readonly text: string;
-    readonly isDone: boolean;
-  }[];
+  readonly tasks: TaskResponse[];
 }
 
-export function ListOfTasks({ items }: Props) {
+export function ListOfTasks({ tasks }: Props) {
   return (
     <List>
-      {items.map((item) => (
-        <TaskListItem item={item} />
+      {tasks.map((task) => (
+        <TaskListItem task={task} />
       ))}
     </List>
   );
