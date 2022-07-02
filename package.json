@@ -30,7 +30,7 @@
     "prettier": "^2.7.1"
   },
   "lint-staged": {
-    "*.ts": "eslint --cache --fix",
+    "*.{ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md,json,html}": "npm run format"
   }
 }
