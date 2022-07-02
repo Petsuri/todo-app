@@ -1,5 +1,5 @@
 import { Container } from '@mui/system';
-import { Header } from '../components/header';
+import { Header } from '../components';
 import { HomePage } from '../pages';
 
 export function Router() {
