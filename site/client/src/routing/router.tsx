@@ -4,9 +4,11 @@ import { HomePage } from '../pages';
 
 export function Router() {
   return (
-    <Container>
+    <div>
       <Header />
-      <HomePage />
-    </Container>
+      <Container maxWidth='sm'>
+        <HomePage />
+      </Container>
+    </div>
   );
 }
