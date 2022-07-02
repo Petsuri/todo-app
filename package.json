@@ -17,11 +17,20 @@
   },
   "homepage": "https://github.com/Petsuri/todo-app#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.3",
+    "@typescript-eslint/parser": "^5.30.3",
+    "eslint": "^8.19.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.30.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   },
   "lint-staged": {
+    "*.ts": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "npm run format"
   }
 }
