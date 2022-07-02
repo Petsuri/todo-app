@@ -1,0 +1,17 @@
+{
+  "name": "@todo-app/api-client",
+  "version": "1.0.0",
+  "main": ".build/index.js",
+  "types": ".build/index.d.ts",
+  "description": "",
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build",
+    "build:watch": "tsc --build --clean && tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
