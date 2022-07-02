@@ -31,6 +31,6 @@
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix",
-    "*.{js,ts,tsx,css,md}": "npm run format"
+    "*.{js,ts,tsx,css,md,json}": "npm run format"
   }
 }
