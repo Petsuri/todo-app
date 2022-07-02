@@ -1,0 +1,27 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Petsuri/todo-app.git"
+  },
+  "author": "Petri Miikki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Petsuri/todo-app/issues"
+  },
+  "homepage": "https://github.com/Petsuri/todo-app#readme",
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,css,md}": "npm run format"
+  }
+}
