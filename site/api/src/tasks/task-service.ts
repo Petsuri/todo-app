@@ -12,6 +12,7 @@ export interface Task {
 
 export interface TaskRepository {
   save(task: Task): Promise<void>;
+  saveAll(tasks: Task[]): Promise<void>;
   loadAll(): Promise<Task[]>;
 }
 
@@ -32,5 +33,11 @@ export class TaskService {
 
   public loadAll(): Promise<Task[]> {
     return this.repository.loadAll();
+  }
+
+  public async delete(uuid: string): Promise<void> {
+    const tasks = await this.loadAll();
+    const existing = tasks.filter((value) => value.uuid !== uuid);
+    await this.repository.saveAll(existing);
   }
 }

@@ -8,9 +8,21 @@ import {
 import { TaskService } from './tasks/task-service';
 import { TaskRepositoryFileSystem } from './tasks/task-repository-file-system';
 
+export interface UuidParams {
+  readonly uuid: string;
+}
+
 const taskService = new TaskService(new TaskRepositoryFileSystem());
 
 export function addTaskResources(app: Express) {
+  app.put<void, TaskResponse, PostTaskRequest>('/task/:uuid', (_req, _res) => {});
+
+  app.delete<UuidParams, void, void>('/task/:uuid', async (req, res) => {
+    await taskService.delete(req.params.uuid);
+    res.statusCode = 204;
+    res.send();
+  });
+
   app.get<void, ListOfTasksResponse, void>('/task', async (_req, res) => {
     const tasks = await taskService.loadAll();
     res.send(tasks);
@@ -25,8 +37,4 @@ export function addTaskResources(app: Express) {
     const createdTask = await taskService.create(req.body);
     res.send(createdTask);
   });
-
-  app.put<void, TaskResponse, PostTaskRequest>('/task/:uuid', (_req, _res) => {});
-
-  app.delete<void, void, void>('/task/:uuid', (_req, _res) => {});
 }

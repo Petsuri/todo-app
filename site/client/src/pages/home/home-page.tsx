@@ -11,14 +11,24 @@ export function HomePage() {
     return setTasks(tasks.concat([value]));
   };
 
+  const deleteTask = async (uuid: string) => {
+    await apiRequests.delete(uuid);
+    await reloadTasks();
+  };
+
+  const reloadTasks = async () => {
+    const responseTasks = await apiRequests.getTasks();
+    setTasks(responseTasks);
+  };
+
   useEffect(() => {
-    apiRequests.getTasks().then((response) => setTasks(response));
+    reloadTasks();
   }, []);
 
   return (
     <>
       <AddNewTask create={createTask} />
-      <ListOfTasks tasks={tasks} />
+      <ListOfTasks tasks={tasks} deleteTask={deleteTask} />
     </>
   );
 }

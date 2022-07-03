@@ -5,10 +5,12 @@ import { TaskResponse } from '@todo-app/api-client';
 
 interface Props {
   readonly task: TaskResponse;
+  readonly deleteTask: (uuid: string) => Promise<void>;
 }
 
-export function TaskListItem({ task }: Props) {
+export function TaskListItem({ task, deleteTask }: Props) {
   const taskStatusColor = task.isDone ? 'success' : 'action';
+  const deleteSelected = () => deleteTask(task.uuid);
   return (
     <ListItem
       secondaryAction={
@@ -16,7 +18,7 @@ export function TaskListItem({ task }: Props) {
           <IconButton edge='end' aria-label='delete'>
             <TaskIcon color={taskStatusColor} />
           </IconButton>
-          <IconButton edge='end' aria-label='delete'>
+          <IconButton edge='end' aria-label='delete' onClick={deleteSelected}>
             <DeleteIcon color='error' />
           </IconButton>
         </Stack>

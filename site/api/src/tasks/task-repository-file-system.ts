@@ -8,8 +8,7 @@ export class TaskRepositoryFileSystem implements TaskRepository {
     const currentTasks = await this.loadAll();
     currentTasks.push(task);
 
-    const tasksJson = JSON.stringify(currentTasks);
-    await fs.promises.writeFile(TaskFilePath, tasksJson, { encoding: 'utf8' });
+    await this.saveAll(currentTasks);
   }
 
   public async loadAll(): Promise<Task[]> {
@@ -19,5 +18,10 @@ export class TaskRepositoryFileSystem implements TaskRepository {
     } catch (_fileDoesntExists) {
       return [];
     }
+  }
+
+  public async saveAll(tasks: Task[]): Promise<void> {
+    const tasksJson = JSON.stringify(tasks);
+    await fs.promises.writeFile(TaskFilePath, tasksJson, { encoding: 'utf8' });
   }
 }
