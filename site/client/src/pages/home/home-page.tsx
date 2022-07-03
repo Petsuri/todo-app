@@ -6,8 +6,9 @@ import { PostTaskRequest } from '@todo-app/api-client';
 
 export function HomePage() {
   const [tasks, setTasks] = useState<ListOfTasksResponse>([]);
-  const createTask = (task: PostTaskRequest) => {
-    return apiRequests.createTask(task).then((value) => setTasks(tasks.concat([value])));
+  const createTask = async (task: PostTaskRequest) => {
+    const value = await apiRequests.createTask(task);
+    return setTasks(tasks.concat([value]));
   };
 
   useEffect(() => {

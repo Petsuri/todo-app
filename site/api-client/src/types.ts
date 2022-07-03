@@ -9,3 +9,7 @@ export interface TaskResponse {
 }
 
 export type ListOfTasksResponse = TaskResponse[];
+
+export interface ErrorResponse {
+  readonly message: string;
+}

@@ -10,7 +10,7 @@ export function ListOfTasks({ tasks }: Props) {
   return (
     <List>
       {tasks.map((task) => (
-        <TaskListItem task={task} />
+        <TaskListItem key={task.uuid} task={task} />
       ))}
     </List>
   );

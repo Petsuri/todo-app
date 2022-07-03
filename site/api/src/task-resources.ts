@@ -1,20 +1,32 @@
 import { Express } from 'express';
-import { ListOfTasksResponse, PostTaskRequest, TaskResponse } from '@todo-app/api-client';
+import {
+  ErrorResponse,
+  ListOfTasksResponse,
+  PostTaskRequest,
+  TaskResponse,
+} from '@todo-app/api-client';
+import { TaskService } from './tasks/task-service';
+import { TaskRepositoryFileSystem } from './tasks/task-repository-file-system';
+
+const taskService = new TaskService(new TaskRepositoryFileSystem());
 
 export function addTaskResources(app: Express) {
-  app.get<void, ListOfTasksResponse, void>('/task', (req, res) => {
-    res.send([
-      {
-        uuid: 'xxx',
-        text: 'Testing',
-        isDone: false,
-      },
-    ]);
+  app.get<void, ListOfTasksResponse, void>('/task', async (_req, res) => {
+    const tasks = await taskService.loadAll();
+    res.send(tasks);
   });
 
-  app.post<void, TaskResponse, PostTaskRequest>('/task', (req, res) => {});
+  app.post<void, TaskResponse | ErrorResponse, PostTaskRequest>('/task', async (req, res) => {
+    if (!req.body.text) {
+      res.statusCode = 400;
+      return res.send({ message: 'text is missing from body' });
+    }
 
-  app.put<void, TaskResponse, PostTaskRequest>('/task/:uuid', (req, res) => {});
+    const createdTask = await taskService.create(req.body);
+    res.send(createdTask);
+  });
 
-  app.delete<void, void, void>('/task/:uuid', (req, res) => {});
+  app.put<void, TaskResponse, PostTaskRequest>('/task/:uuid', (_req, _res) => {});
+
+  app.delete<void, void, void>('/task/:uuid', (_req, _res) => {});
 }

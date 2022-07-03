@@ -1,6 +1,9 @@
 #Typescript builds
 **/.build/**
 
+# Tasks file created by api
+saved-tasks.json
+
 # Logs
 logs
 *.log

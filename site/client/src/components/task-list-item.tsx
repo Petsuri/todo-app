@@ -11,7 +11,6 @@ export function TaskListItem({ task }: Props) {
   const taskStatusColor = task.isDone ? 'success' : 'action';
   return (
     <ListItem
-      key={task.uuid}
       secondaryAction={
         <Stack direction='row' spacing={2}>
           <IconButton edge='end' aria-label='delete'>

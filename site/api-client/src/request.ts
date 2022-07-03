@@ -19,7 +19,7 @@ export function request<TResponse>(
     baseURL: baseUrl,
     url: options.resource,
     data: options.body,
+    method: options.method,
   };
-
   return makeRequest.request<TResponse>(settings).then((response) => response.data);
 }
