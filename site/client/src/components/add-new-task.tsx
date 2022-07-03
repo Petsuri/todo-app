@@ -30,6 +30,7 @@ export function AddNewTask({ create }: Props) {
       <Grid item md={8}>
         <TextField
           id='task-input'
+          data-testid='task-input'
           label='What needs to be done'
           variant='standard'
           multiline
@@ -39,7 +40,11 @@ export function AddNewTask({ create }: Props) {
         />
       </Grid>
       <Grid item md={4}>
-        <Button variant='contained' onClick={createNewTask} disabled={!canAdd}>
+        <Button
+          data-testid='add-new-task-btn'
+          variant='contained'
+          onClick={createNewTask}
+          disabled={!canAdd}>
           Add task
         </Button>
       </Grid>
