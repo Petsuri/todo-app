@@ -16,6 +16,11 @@ export function HomePage() {
     await reloadTasks();
   };
 
+  const setTaskDone = async (uuid: string) => {
+    await apiRequests.markDone(uuid);
+    await reloadTasks();
+  };
+
   const reloadTasks = async () => {
     const responseTasks = await apiRequests.getTasks();
     setTasks(responseTasks);
@@ -28,7 +33,7 @@ export function HomePage() {
   return (
     <>
       <AddNewTask create={createTask} />
-      <ListOfTasks tasks={tasks} deleteTask={deleteTask} />
+      <ListOfTasks tasks={tasks} deleteTask={deleteTask} setTaskDone={setTaskDone} />
     </>
   );
 }

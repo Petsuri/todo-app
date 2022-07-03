@@ -15,7 +15,18 @@ export interface UuidParams {
 const taskService = new TaskService(new TaskRepositoryFileSystem());
 
 export function addTaskResources(app: Express) {
-  app.put<void, TaskResponse, PostTaskRequest>('/task/:uuid', (_req, _res) => {});
+  app.put<UuidParams, TaskResponse | ErrorResponse, PostTaskRequest>(
+    '/task/:uuid',
+    async (req, res) => {
+      const result = await taskService.markDone(req.params.uuid);
+      if (result) {
+        return res.send(result);
+      }
+
+      res.statusCode = 404;
+      res.send({ message: `Task with ${req.params.uuid} is not found` });
+    }
+  );
 
   app.delete<UuidParams, void, void>('/task/:uuid', async (req, res) => {
     await taskService.delete(req.params.uuid);

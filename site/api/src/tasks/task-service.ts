@@ -40,4 +40,27 @@ export class TaskService {
     const existing = tasks.filter((value) => value.uuid !== uuid);
     await this.repository.saveAll(existing);
   }
+
+  public async markDone(uuid: string): Promise<Task | null> {
+    const existingTasks = await this.loadAll();
+    const selectedTask = existingTasks.filter((value) => value.uuid === uuid);
+    if (selectedTask.length === 0) {
+      return null;
+    }
+
+    const updatedTasks = existingTasks.map((task) => this.markTaskDone(uuid, task));
+    await this.repository.saveAll(updatedTasks);
+    return selectedTask[0];
+  }
+
+  private markTaskDone(uuid: string, task: Task): Task {
+    if (task.uuid !== uuid) {
+      return task;
+    }
+
+    return {
+      ...task,
+      isDone: true,
+    };
+  }
 }
