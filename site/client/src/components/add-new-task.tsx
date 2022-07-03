@@ -1,22 +1,28 @@
 import { Button, Grid, TextField } from '@mui/material';
 import { PostTaskRequest } from '@todo-app/api-client';
-import { useRef } from 'react';
+import { useState } from 'react';
 
 interface Props {
   readonly create: (task: PostTaskRequest) => Promise<void>;
 }
 
 export function AddNewTask({ create }: Props) {
-  const text = useRef<HTMLInputElement>(null);
+  const [text, setText] = useState('');
+  const [canAdd, setCanAdd] = useState(false);
 
   const createNewTask = async () => {
-    if (text.current === null) {
+    if (!canAdd) {
       return;
     }
 
     await create({
-      text: text.current.value,
-    }).then((_) => (text.current!.value = ''));
+      text: text,
+    }).then((_) => textChanged(''));
+  };
+
+  const textChanged = (newValue: string) => {
+    setText(newValue);
+    setCanAdd(0 < newValue.length);
   };
 
   return (
@@ -28,11 +34,12 @@ export function AddNewTask({ create }: Props) {
           variant='standard'
           multiline
           fullWidth
-          inputRef={text}
+          onChange={(e) => textChanged(e.target.value)}
+          value={text}
         />
       </Grid>
       <Grid item md={4}>
-        <Button variant='contained' onClick={createNewTask}>
+        <Button variant='contained' onClick={createNewTask} disabled={!canAdd}>
           Add task
         </Button>
       </Grid>

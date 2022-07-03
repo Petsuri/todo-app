@@ -1,4 +1,4 @@
-import { IconButton, ListItem, ListItemText, Stack } from '@mui/material';
+import { IconButton, ListItem, ListItemText, Stack, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TaskIcon from '@mui/icons-material/TaskSharp';
 import { TaskResponse } from '@todo-app/api-client';
@@ -31,7 +31,11 @@ export function TaskListItem({ task, deleteTask, setTaskDone }: Props) {
           </IconButton>
         </Stack>
       }>
-      <ListItemText secondary={task.text} sx={{ wordWrap: 'break-word', paddingRight: 6 }} />
+      <ListItemText
+        primary={task.text}
+        primaryTypographyProps={{ style: { whiteSpace: 'normal' } }}
+        sx={{ paddingRight: 6 }}
+      />
     </ListItem>
   );
 }
