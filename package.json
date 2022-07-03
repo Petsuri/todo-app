@@ -7,9 +7,10 @@
   "scripts": {
     "prepare": "husky install",
     "format": "prettier --write .",
-    "local:api-client": "cd site/api-client && npm run build:watch",
-    "local:client": "cd site/client && npm start",
-    "local": "run-p local:**"
+    "start:api-client": "cd site/api-client && npm run build:watch",
+    "start:client": "cd site/client && npm start",
+    "start:api": "cd site/api && npm start",
+    "start": "run-p start:**"
   },
   "repository": {
     "type": "git",
