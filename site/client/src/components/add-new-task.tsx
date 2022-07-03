@@ -9,12 +9,12 @@ interface Props {
 export function AddNewTask({ create }: Props) {
   const text = useRef<HTMLInputElement>(null);
 
-  const createNewTask = () => {
+  const createNewTask = async () => {
     if (text.current === null) {
       return;
     }
 
-    create({
+    await create({
       text: text.current.value,
     }).then((_) => (text.current!.value = ''));
   };
@@ -28,7 +28,7 @@ export function AddNewTask({ create }: Props) {
           variant='standard'
           multiline
           fullWidth
-          ref={text}
+          inputRef={text}
         />
       </Grid>
       <Grid item md={4}>

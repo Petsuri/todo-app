@@ -1,8 +1,8 @@
 import { Express } from 'express';
-import { ListOfTaskResources, PostTaskRequest, TaskResponse } from '@todo-app/api-client';
+import { ListOfTasksResponse, PostTaskRequest, TaskResponse } from '@todo-app/api-client';
 
 export function addTaskResources(app: Express) {
-  app.get<void, ListOfTaskResources, void>('/task', (req, res) => {
+  app.get<void, ListOfTasksResponse, void>('/task', (req, res) => {
     res.send([
       {
         uuid: 'xxx',
