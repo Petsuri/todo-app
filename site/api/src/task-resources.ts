@@ -28,10 +28,15 @@ export function addTaskResources(app: Express) {
     }
   );
 
-  app.delete<UuidParams, void, void>('/task/:uuid', async (req, res) => {
-    await taskService.delete(req.params.uuid);
-    res.statusCode = 204;
-    res.send();
+  app.delete<UuidParams, void | ErrorResponse, void>('/task/:uuid', async (req, res) => {
+    const result = await taskService.delete(req.params.uuid);
+    if (result) {
+      res.statusCode = 204;
+      return res.send();
+    }
+
+    res.statusCode = 404;
+    res.send({ message: `Task with ${req.params.uuid} is not found` });
   });
 
   app.get<void, ListOfTasksResponse, void>('/task', async (_req, res) => {
