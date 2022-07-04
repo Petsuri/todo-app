@@ -7,6 +7,13 @@
   "scripts": {
     "prepare": "husky install",
     "format": "prettier --write .",
+    "dependencies:api-client": "cd site/api-client && npm install",
+    "dependencies:client": "cd site/client && npm install",
+    "dependencies:api": "cd site/api && npm install",
+    "dependencies": "npm ci && run-p dependencies:**",
+    "test:client": "cd site/client && cross-env CI=true npm test",
+    "test:api": "cd site/client && npm test",
+    "test": "run-p test:**",
     "start:api-client": "cd site/api-client && npm run build:watch",
     "start:client": "cd site/client && npm start",
     "start:api": "cd site/api && npm start",
@@ -25,6 +32,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.3",
     "@typescript-eslint/parser": "^5.30.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
