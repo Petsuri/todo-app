@@ -35,21 +35,35 @@ export class TaskService {
     return this.repository.loadAll();
   }
 
-  public async delete(uuid: string): Promise<void> {
+  public async delete(uuid: string): Promise<boolean> {
     const tasks = await this.loadAll();
+    const selectedTask = this.getSelectedTask(uuid, tasks);
+    if (selectedTask === null) {
+      return false;
+    }
     const existing = tasks.filter((value) => value.uuid !== uuid);
     await this.repository.saveAll(existing);
+    return true;
   }
 
   public async markDone(uuid: string): Promise<Task | null> {
     const existingTasks = await this.loadAll();
-    const selectedTask = existingTasks.filter((value) => value.uuid === uuid);
+    const updatedTasks = existingTasks.map((task) => this.markTaskDone(uuid, task));
+    const selectedTask = this.getSelectedTask(uuid, updatedTasks);
+    if (selectedTask === null) {
+      return null;
+    }
+
+    await this.repository.saveAll(updatedTasks);
+    return selectedTask;
+  }
+
+  private getSelectedTask(uuid: string, tasks: Task[]) {
+    const selectedTask = tasks.filter((value) => value.uuid === uuid);
     if (selectedTask.length === 0) {
       return null;
     }
 
-    const updatedTasks = existingTasks.map((task) => this.markTaskDone(uuid, task));
-    await this.repository.saveAll(updatedTasks);
     return selectedTask[0];
   }
 
